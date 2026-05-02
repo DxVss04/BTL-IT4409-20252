@@ -2,26 +2,31 @@ import mongoose from "mongoose";
 
 const friendRequestSchema = new mongoose.Schema(
   {
-    sender: {
+    from: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    receiver: {
+    to: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    status: {
+    message: {
       type: String,
-      enum: ["pending", "accepted", "rejected"],
-      default: "pending",
+      maxlength: 300,
     },
-    note: { type: String, default: "" }, // Lời nhắn gửi kèm khi kết bạn
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = mongoose.model("FriendRequest", friendRequestSchema);
+friendRequestSchema.index({ from: 1, to: 1 }, { unique: true });
+
+friendRequestSchema.index({ from: 1 });
+
+friendRequestSchema.index({ to: 1 });
+
+const FriendRequest = mongoose.model("FriendRequest", friendRequestSchema);
+export default FriendRequest;
