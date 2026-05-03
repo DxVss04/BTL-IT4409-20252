@@ -24,9 +24,13 @@ app.use(express.json());
 
 import authRoutes from './routes/authRoutes';
 import chatRoutes from './routes/chatRoutes';
+import { setupSwagger } from './config/swagger';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/chats', chatRoutes);
+
+// Setup Swagger
+setupSwagger(app as any);
 
 // Database Connection
 const PORT = process.env.PORT || 5000;
