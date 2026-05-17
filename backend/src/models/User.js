@@ -6,11 +6,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      trim: true, // loại bỏ khoảng trắng đầu/cuối
+      trim: true,
       lowercase: true,
     },
     hashedPassword: {
-      // mật khẩu đã được hash, không lưu trực tiếp mk vào database
       type: String,
       required: true,
     },
@@ -34,7 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     bio: {
       type: String,
-      maxlength: 500, // độ dài bio (tùy)
+      maxlength: 500, // tuỳ
     },
     phone: {
       type: String,
@@ -42,8 +41,8 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // tự động thêm createdAt và updatedAt
-  },
+    timestamps: true,
+  }
 );
 
 const User = mongoose.model("User", userSchema);

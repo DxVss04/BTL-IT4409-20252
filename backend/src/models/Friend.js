@@ -15,7 +15,7 @@ const friendSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 friendSchema.pre("save", function (next) {
