@@ -19,13 +19,11 @@ export const searchUserByUsername = async (req, res) => {
     const { username } = req.query;
 
     if (!username || username.trim() === "") {
-      return res
-        .status(400)
-        .json({ message: "Cần cung cấp username trong query." });
+      return res.status(400).json({ message: "Cần cung cấp username trong query." });
     }
 
     const user = await User.findOne({ username }).select(
-      "_id displayName username avatarUrl",
+      "_id displayName username avatarUrl"
     );
 
     return res.status(200).json({ user });
@@ -34,7 +32,6 @@ export const searchUserByUsername = async (req, res) => {
     return res.status(500).json({ message: "Lỗi hệ thống" });
   }
 };
-
 
 export const uploadAvatar = async (req, res) => {
   try {
@@ -68,4 +65,3 @@ export const uploadAvatar = async (req, res) => {
     return res.status(500).json({ message: "Upload failed" });
   }
 };
-

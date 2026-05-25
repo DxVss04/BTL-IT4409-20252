@@ -55,9 +55,7 @@ export const createConversation = async (req, res) => {
     }
 
     if (!conversation) {
-      return res
-        .status(400)
-        .json({ message: "Conversation type không hợp lệ" });
+      return res.status(400).json({ message: "Conversation type không hợp lệ" });
     }
 
     await conversation.populate([
@@ -201,9 +199,7 @@ export const markAsSeen = async (req, res) => {
     const last = conversation.lastMessage;
 
     if (!last) {
-      return res
-        .status(200)
-        .json({ message: "Không có tin nhắn để mark as seen" });
+      return res.status(200).json({ message: "Không có tin nhắn để mark as seen" });
     }
 
     if (last.senderId.toString() === userId) {
@@ -235,7 +231,7 @@ export const markAsSeen = async (req, res) => {
 
     return res.status(200).json({
       message: "Marked as seen",
-      seenBy: updated?.seenBy || [],
+      seenBy: updated?.sennBy || [],
       myUnreadCount: updated?.unreadCounts[userId] || 0,
     });
   } catch (error) {

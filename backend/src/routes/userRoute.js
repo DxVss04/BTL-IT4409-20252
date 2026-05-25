@@ -4,7 +4,7 @@ import {
   searchUserByUsername,
   uploadAvatar,
 } from "../controllers/userController.js";
-import { upload } from "../middlewares/uploadMiddlewares.js";
+import { upload } from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 
