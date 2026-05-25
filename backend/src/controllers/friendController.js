@@ -1,6 +1,7 @@
 import Friend from "../models/Friend.js";
 import User from "../models/User.js";
 import FriendRequest from "../models/FriendRequest.js";
+import { io } from "../socket/index.js";
 
 export const sendFriendRequest = async (req, res) => {
   try {
@@ -50,6 +51,14 @@ export const sendFriendRequest = async (req, res) => {
       to,
       message,
     });
+
+    await request.populate([
+      { path: "from", select: "_id username displayName avatarUrl" },
+      { path: "to", select: "_id username displayName avatarUrl" },
+    ]);
+
+    io.to(to.toString()).emit("friend-request:received", request);
+    io.to(from.toString()).emit("friend-request:sent", request);
 
     return res
       .status(201)
