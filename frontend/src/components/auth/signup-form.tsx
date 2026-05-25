@@ -58,7 +58,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   className="mx-auto block w-fit text-center"
                 >
                   <img
-                    src="/logo.svg"
+                    src="/logo_web.png"
                     alt="logo"
                     className="h-12 w-auto"
                   />
