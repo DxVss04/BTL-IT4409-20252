@@ -11,7 +11,7 @@ export const useChatStore = create<ChatState>()(
       conversations: [],
       messages: {},
       activeConversationId: null,
-      convoLoading: false, // convo loading
+      convoLoading: false,
       messageLoading: false,
       loading: false,
 
@@ -32,7 +32,7 @@ export const useChatStore = create<ChatState>()(
 
           set({ conversations, convoLoading: false });
         } catch (error) {
-          console.error("Lỗi xảy ra khi fetchConversations:", error);
+          console.error("Loi xay ra khi fetchConversations:", error);
           set({ convoLoading: false });
         }
       },
@@ -79,18 +79,18 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
-          console.error("Lỗi xảy ra khi fetchMessages:", error);
+          console.error("Loi xay ra khi fetchMessages:", error);
         } finally {
           set({ messageLoading: false });
         }
       },
-      sendDirectMessage: async (recipientId, content, imgUrl) => {
+      sendDirectMessage: async (recipientId, content, image) => {
         try {
           const { activeConversationId } = get();
           await chatService.sendDirectMessage(
             recipientId,
             content,
-            imgUrl,
+            image,
             activeConversationId || undefined
           );
           set((state) => ({
@@ -99,19 +99,21 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
-          console.error("Lỗi xảy ra khi gửi direct message", error);
+          console.error("Loi xay ra khi gui direct message", error);
+          throw error;
         }
       },
-      sendGroupMessage: async (conversationId, content, imgUrl) => {
+      sendGroupMessage: async (conversationId, content, image) => {
         try {
-          await chatService.sendGroupMessage(conversationId, content, imgUrl);
+          await chatService.sendGroupMessage(conversationId, content, image);
           set((state) => ({
             conversations: state.conversations.map((c) =>
               c._id === get().activeConversationId ? { ...c, seenBy: [] } : c
             ),
           }));
         } catch (error) {
-          console.error("Lỗi xảy ra gửi group message", error);
+          console.error("Loi xay ra khi gui group message", error);
+          throw error;
         }
       },
       addMessage: async (message) => {
@@ -147,7 +149,7 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
-          console.error("Lỗi xảy khi ra add message:", error);
+          console.error("Loi xay khi ra add message:", error);
         }
       },
       updateConversation: (conversation) => {
@@ -192,7 +194,7 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
-          console.error("Lỗi xảy ra khi gọi markAsSeen trong store", error);
+          console.error("Loi xay ra khi goi markAsSeen trong store", error);
         }
       },
       addConvo: (convo) => {
@@ -224,9 +226,32 @@ export const useChatStore = create<ChatState>()(
             .getState()
             .socket?.emit("join-conversation", conversation._id);
         } catch (error) {
-          console.error("Lỗi xảy ra khi gọi createConversation trong store", error);
+          console.error("Loi xay ra khi goi createConversation trong store", error);
         } finally {
           set({ loading: false });
+        }
+      },
+      deleteConversation: async (conversationId) => {
+        try {
+          await chatService.deleteConversation(conversationId);
+          set((state) => {
+            const nextMessages = { ...state.messages };
+            delete nextMessages[conversationId];
+
+            return {
+              conversations: state.conversations.filter(
+                (c) => c._id !== conversationId
+              ),
+              messages: nextMessages,
+              activeConversationId:
+                state.activeConversationId === conversationId
+                  ? null
+                  : state.activeConversationId,
+            };
+          });
+        } catch (error) {
+          console.error("Loi xay ra khi xoa conversation", error);
+          throw error;
         }
       },
     }),

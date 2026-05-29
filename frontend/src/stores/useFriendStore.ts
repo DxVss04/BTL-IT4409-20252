@@ -7,6 +7,7 @@ export const useFriendStore = create<FriendState>((set) => ({
   loading: false,
   receivedList: [],
   sentList: [],
+  hasUnreadFriendRequest: false,
   searchByUsername: async (username) => {
     try {
       set({ loading: true });
@@ -32,6 +33,30 @@ export const useFriendStore = create<FriendState>((set) => ({
     } finally {
       set({ loading: false });
     }
+  },
+  addReceivedRequest: (request) => {
+    set((state) => {
+      const exists = state.receivedList.some((r) => r._id === request._id);
+
+      return {
+        receivedList: exists
+          ? state.receivedList
+          : [request, ...state.receivedList],
+        hasUnreadFriendRequest: true,
+      };
+    });
+  },
+  addSentRequest: (request) => {
+    set((state) => {
+      const exists = state.sentList.some((r) => r._id === request._id);
+
+      return {
+        sentList: exists ? state.sentList : [request, ...state.sentList],
+      };
+    });
+  },
+  markFriendRequestsSeen: () => {
+    set({ hasUnreadFriendRequest: false });
   },
   getAllFriendRequests: async () => {
     try {

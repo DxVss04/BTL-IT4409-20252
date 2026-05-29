@@ -1,6 +1,14 @@
 import { Card } from "@/components/ui/card";
-import { formatOnlineTime, cn } from "@/lib/utils";
-import { MoreHorizontal } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn, formatOnlineTime } from "@/lib/utils";
+import { useChatStore } from "@/stores/useChatStore";
+import { MoreHorizontal, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface ChatCardProps {
   convoId: string;
@@ -23,6 +31,18 @@ const ChatCard = ({
   leftSection,
   subtitle,
 }: ChatCardProps) => {
+  const { deleteConversation } = useChatStore();
+
+  const handleDelete = async () => {
+    try {
+      await deleteConversation(convoId);
+      toast.success("Da xoa doan chat");
+    } catch (error) {
+      console.error(error);
+      toast.error("Khong the xoa doan chat. Hay thu lai!");
+    }
+  };
+
   return (
     <Card
       key={convoId}
@@ -52,9 +72,29 @@ const ChatCard = ({
             </span>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <div className="flex min-w-0 flex-1 items-center gap-1">{subtitle}</div>
-            <MoreHorizontal className="size-4 text-muted-foreground opacity-0 transition-smooth group-hover:opacity-100" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Mo tuy chon doan chat"
+                  className="flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-smooth hover:bg-accent hover:text-accent-foreground group-hover:opacity-100 data-[state=open]:opacity-100"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <MoreHorizontal className="size-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <DropdownMenuItem variant="destructive" onSelect={handleDelete}>
+                  <Trash2 className="size-4" />
+                  Xoa doan chat
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>

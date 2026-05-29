@@ -1,20 +1,36 @@
 import Conversation from "../models/Conversation.js";
 import Message from "../models/Message.js";
+import { uploadImageFromBuffer } from "../middlewares/uploadMiddleware.js";
 import {
   emitNewMessage,
   updateConversationAfterCreateMessage,
 } from "../utils/messageHelper.js";
 import { io } from "../socket/index.js";
 
+const getMessageImageUrl = async (file) => {
+  if (!file) {
+    return null;
+  }
+
+  const uploaded = await uploadImageFromBuffer(file.buffer, {
+    folder: "moji_chat/messages",
+    transformation: [{ width: 1200, height: 1200, crop: "limit" }],
+  });
+
+  return uploaded.secure_url;
+};
+
 export const sendDirectMessage = async (req, res) => {
   try {
     const { recipientId, content, conversationId } = req.body;
     const senderId = req.user._id;
+    const normalizedContent = content?.trim() ?? "";
+    const imgUrl = req.body.imgUrl || (await getMessageImageUrl(req.file));
 
     let conversation;
 
-    if (!content) {
-      return res.status(400).json({ message: "Thiếu nội dung" });
+    if (!normalizedContent && !imgUrl) {
+      return res.status(400).json({ message: "Thieu noi dung" });
     }
 
     if (conversationId) {
@@ -36,7 +52,8 @@ export const sendDirectMessage = async (req, res) => {
     const message = await Message.create({
       conversationId: conversation._id,
       senderId,
-      content,
+      content: normalizedContent,
+      imgUrl,
     });
 
     updateConversationAfterCreateMessage(conversation, message, senderId);
@@ -47,8 +64,8 @@ export const sendDirectMessage = async (req, res) => {
 
     return res.status(201).json({ message });
   } catch (error) {
-    console.error("Lỗi xảy ra khi gửi tin nhắn trực tiếp", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Loi xay ra khi gui tin nhan truc tiep", error);
+    return res.status(500).json({ message: "Loi he thong" });
   }
 };
 
@@ -57,15 +74,18 @@ export const sendGroupMessage = async (req, res) => {
     const { conversationId, content } = req.body;
     const senderId = req.user._id;
     const conversation = req.conversation;
+    const normalizedContent = content?.trim() ?? "";
+    const imgUrl = req.body.imgUrl || (await getMessageImageUrl(req.file));
 
-    if (!content) {
-      return res.status(400).json("Thiếu nội dung");
+    if (!normalizedContent && !imgUrl) {
+      return res.status(400).json("Thieu noi dung");
     }
 
     const message = await Message.create({
       conversationId,
       senderId,
-      content,
+      content: normalizedContent,
+      imgUrl,
     });
 
     updateConversationAfterCreateMessage(conversation, message, senderId);
@@ -75,7 +95,7 @@ export const sendGroupMessage = async (req, res) => {
 
     return res.status(201).json({ message });
   } catch (error) {
-    console.error("Lỗi xảy ra khi gửi tin nhắn nhóm", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Loi xay ra khi gui tin nhan nhom", error);
+    return res.status(500).json({ message: "Loi he thong" });
   }
 };

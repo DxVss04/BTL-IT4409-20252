@@ -99,6 +99,7 @@ export const getConversations = async (req, res) => {
     const userId = req.user._id;
     const conversations = await Conversation.find({
       "participants.userId": userId,
+      deletedFor: { $ne: userId },
     })
       .sort({ lastMessageAt: -1, updatedAt: -1 })
       .populate({
@@ -133,6 +134,34 @@ export const getConversations = async (req, res) => {
   } catch (error) {
     console.error("Lỗi xảy ra khi lấy conversations", error);
     return res.status(500).json({ message: "Lỗi hệ thống" });
+  }
+};
+
+export const deleteConversationForMe = async (req, res) => {
+  try {
+    const { conversationId } = req.params;
+    const userId = req.user._id;
+
+    const conversation = await Conversation.findOneAndUpdate(
+      {
+        _id: conversationId,
+        "participants.userId": userId,
+      },
+      {
+        $addToSet: { deletedFor: userId },
+        $set: { [`unreadCounts.${userId.toString()}`]: 0 },
+      },
+      { new: true },
+    );
+
+    if (!conversation) {
+      return res.status(404).json({ message: "Khong tim thay cuoc tro chuyen" });
+    }
+
+    return res.status(200).json({ message: "Da xoa doan chat" });
+  } catch (error) {
+    console.error("Loi khi xoa conversation", error);
+    return res.status(500).json({ message: "Loi he thong" });
   }
 };
 

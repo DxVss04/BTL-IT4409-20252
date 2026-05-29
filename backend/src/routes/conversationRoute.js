@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createConversation,
+  deleteConversationForMe,
   getConversations,
   getMessages,
   markAsSeen,
@@ -13,5 +14,6 @@ router.post("/", checkFriendship, createConversation);
 router.get("/", getConversations);
 router.get("/:conversationId/messages", getMessages);
 router.patch("/:conversationId/seen", markAsSeen);
+router.delete("/:conversationId", deleteConversationForMe);
 
 export default router;
