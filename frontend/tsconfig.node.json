@@ -1,9 +1,15 @@
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+<<<<<<< HEAD
     "target": "ES2023",
     "lib": ["ES2023"],
     "module": "ESNext",
+=======
+    "target": "es2023",
+    "lib": ["ES2023"],
+    "module": "esnext",
+>>>>>>> origin/banje-branch
     "types": ["node"],
     "skipLibCheck": true,
 
@@ -15,12 +21,19 @@
     "noEmit": true,
 
     /* Linting */
+<<<<<<< HEAD
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
+=======
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+>>>>>>> origin/banje-branch
   },
   "include": ["vite.config.ts"]
 }
