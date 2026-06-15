@@ -2,11 +2,12 @@ import { friendService } from "@/services/friendService";
 import type { FriendState } from "@/types/store";
 import { create } from "zustand";
 
-export const useFriendStore = create<FriendState>((set, get) => ({
+export const useFriendStore = create<FriendState>((set) => ({
   friends: [],
   loading: false,
   receivedList: [],
   sentList: [],
+  hasUnreadFriendRequest: false,
   searchByUsername: async (username) => {
     try {
       set({ loading: true });
@@ -32,6 +33,30 @@ export const useFriendStore = create<FriendState>((set, get) => ({
     } finally {
       set({ loading: false });
     }
+  },
+  addReceivedRequest: (request) => {
+    set((state) => {
+      const exists = state.receivedList.some((r) => r._id === request._id);
+
+      return {
+        receivedList: exists
+          ? state.receivedList
+          : [request, ...state.receivedList],
+        hasUnreadFriendRequest: true,
+      };
+    });
+  },
+  addSentRequest: (request) => {
+    set((state) => {
+      const exists = state.sentList.some((r) => r._id === request._id);
+
+      return {
+        sentList: exists ? state.sentList : [request, ...state.sentList],
+      };
+    });
+  },
+  markFriendRequestsSeen: () => {
+    set({ hasUnreadFriendRequest: false });
   },
   getAllFriendRequests: async () => {
     try {

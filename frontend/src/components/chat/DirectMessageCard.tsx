@@ -20,7 +20,21 @@ const DirectMessageCard = ({ convo }: { convo: Conversation }) => {
   if (!otherUser) return null;
 
   const unreadCount = convo.unreadCounts[user._id];
-  const lastMessage = convo.lastMessage?.content ?? "";
+  const senderId =
+    convo.lastMessage?.sender?._id ??
+    (typeof convo.lastMessage?.senderId === "string"
+      ? convo.lastMessage.senderId
+      : convo.lastMessage?.senderId?._id);
+  const senderName =
+    convo.lastMessage?.sender?.displayName ||
+    (typeof convo.lastMessage?.senderId === "object"
+      ? convo.lastMessage.senderId.displayName
+      : undefined) ||
+    convo.participants.find((p) => p._id === senderId)?.displayName ||
+    "Người dùng";
+  const lastMessage = convo.lastMessage?.imgUrl
+    ? `${senderName} đã gửi 1 ảnh`
+    : convo.lastMessage?.content ?? "";
 
   const handleSelectConversation = async (id: string) => {
     setActiveConversation(id);

@@ -21,11 +21,18 @@ import Logout from "../auth/Logout";
 import { useState } from "react";
 import FriendRequestDialog from "../friendRequest/FriendRequestDialog";
 import ProfileDialog from "../profile/ProfileDialog";
+import { useFriendStore } from "@/stores/useFriendStore";
 
 export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
   const [friendRequestOpen, setfriendRequestOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const { hasUnreadFriendRequest, markFriendRequestsSeen } = useFriendStore();
+
+  const openFriendRequests = () => {
+    setfriendRequestOpen(true);
+    markFriendRequestsSeen();
+  };
 
   return (
     <>
@@ -82,8 +89,13 @@ export function NavUser({ user }: { user: User }) {
                   <UserIcon className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
                   Tài Khoản
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setfriendRequestOpen(true)}>
-                  <Bell className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
+                <DropdownMenuItem onClick={openFriendRequests}>
+                  <span className="relative">
+                    <Bell className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
+                    {hasUnreadFriendRequest && (
+                      <span className="absolute -right-1 -top-1 size-2.5 rounded-full bg-red-500 ring-2 ring-background" />
+                    )}
+                  </span>
                   Thông Báo
                 </DropdownMenuItem>
               </DropdownMenuGroup>

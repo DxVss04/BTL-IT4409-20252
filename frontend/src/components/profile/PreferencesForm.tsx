@@ -8,17 +8,21 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { useThemeStore } from "@/stores/useThemeStore";
-import { useState } from "react";
+import { useUserStore } from "@/stores/useUserStore";
 
 const PreferencesForm = () => {
+  const { user } = useAuthStore();
   const { isDark, toggleTheme } = useThemeStore();
+  const { updateProfile } = useUserStore();
 
-  //   các bạn cần handle logic setOnlineStatus
-  const [onlineStatus, setOnlineStatus] = useState(false);
+  const handleOnlineStatusChange = async (checked: boolean) => {
+    await updateProfile({ showOnlineStatus: checked });
+  };
 
   return (
-  <Card className="glass-strong">
+    <Card className="glass-strong">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Sun className="h-5 w-5 text-primary" />
@@ -28,13 +32,9 @@ const PreferencesForm = () => {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {/* Dark Mode */}
         <div className="flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-background p-4">
           <div>
-            <Label
-              htmlFor="theme-toggle"
-              className="text-base font-semibold"
-            >
+            <Label htmlFor="theme-toggle" className="text-base font-semibold">
               Chế độ tối
             </Label>
             <p className="text-sm text-muted-foreground">
@@ -53,13 +53,9 @@ const PreferencesForm = () => {
           </div>
         </div>
 
-        {/* Online Status */}
         <div className="flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-background p-4">
           <div>
-            <Label
-              htmlFor="online-status"
-              className="text-base font-semibold"
-            >
+            <Label htmlFor="online-status" className="text-base font-semibold">
               Hiển thị trạng thái online
             </Label>
             <p className="text-sm text-muted-foreground">
@@ -68,8 +64,8 @@ const PreferencesForm = () => {
           </div>
           <Switch
             id="online-status"
-            checked={onlineStatus}
-            onCheckedChange={setOnlineStatus}
+            checked={user?.showOnlineStatus ?? true}
+            onCheckedChange={handleOnlineStatusChange}
             className="data-[state=checked]:bg-primary"
           />
         </div>

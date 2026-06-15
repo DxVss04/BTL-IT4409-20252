@@ -19,14 +19,22 @@ io.use(socketAuthMiddleware);
 
 const onlineUsers = new Map(); // {userId: socketId}
 
+const emitOnlineUsers = () => {
+  const visibleUserIds = Array.from(onlineUsers.entries())
+    .filter(([, socket]) => socket.user?.showOnlineStatus !== false)
+    .map(([userId]) => userId);
+
+  io.emit("online-users", visibleUserIds);
+};
+
 io.on("connection", async (socket) => {
   const user = socket.user;
 
   // console.log(`${user.displayName} online với socket ${socket.id}`);
 
-  onlineUsers.set(user._id, socket.id);
+  onlineUsers.set(user._id.toString(), socket);
 
-  io.emit("online-users", Array.from(onlineUsers.keys()));
+  emitOnlineUsers();
 
   const conversationIds = await getUserConversationsForSocketIO(user._id);
   conversationIds.forEach((id) => {
@@ -39,9 +47,14 @@ io.on("connection", async (socket) => {
 
   socket.join(user._id.toString());
 
+  socket.on("online-visibility", (showOnlineStatus) => {
+    socket.user.showOnlineStatus = showOnlineStatus;
+    emitOnlineUsers();
+  });
+
   socket.on("disconnect", () => {
-    onlineUsers.delete(user._id);
-    io.emit("online-users", Array.from(onlineUsers.keys()));
+    onlineUsers.delete(user._id.toString());
+    emitOnlineUsers();
     /* console.log(`socket disconnected: ${socket.id}`); */
   });
 });

@@ -14,11 +14,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
   const { onlineUsers } = useSocketStore();
   if (!user) return;
 
-  if (!user.bio) {
-    user.bio = "Will code for food 💻";
-  }
-
-  const isOnline = onlineUsers.includes(user._id) ? true : false;
+  const isOnline = (user.showOnlineStatus ?? true) && onlineUsers.includes(user._id);
 
   return (
     <Card className="h-52 overflow-hidden border-0 bg-gradient-primary p-0 shadow-[var(--shadow-soft)]">
@@ -40,9 +36,9 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             {user.displayName}
           </h1>
 
-          {user.bio && (
+          {(user.bio || "Will code for food 💻") && (
             <p className="mt-2 line-clamp-2 max-w-lg text-sm text-white/75">
-              {user.bio}
+              {user.bio || "Will code for food 💻"}
             </p>
           )}
         </div>

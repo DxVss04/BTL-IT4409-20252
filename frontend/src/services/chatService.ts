@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import type { ConversationResponse, Message } from "@/types/chat";
+import type { Conversation, ConversationResponse, Message } from "@/types/chat";
 
 interface FetchMessageProps {
   messages: Message[];
@@ -25,15 +25,22 @@ export const chatService = {
   async sendDirectMessage(
     recipientId: string,
     content: string = "",
-    imgUrl?: string,
+    image?: File | null,
     conversationId?: string
   ) {
-    const res = await api.post("/messages/direct", {
-      recipientId,
-      content,
-      imgUrl,
-      conversationId,
-    });
+    const formData = new FormData();
+    formData.append("recipientId", recipientId);
+    formData.append("content", content);
+
+    if (conversationId) {
+      formData.append("conversationId", conversationId);
+    }
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    const res = await api.post("/messages/direct", formData);
 
     return res.data.message;
   },
@@ -41,13 +48,17 @@ export const chatService = {
   async sendGroupMessage(
     conversationId: string,
     content: string = "",
-    imgUrl?: string
+    image?: File | null
   ) {
-    const res = await api.post("/messages/group", {
-      conversationId,
-      content,
-      imgUrl,
-    });
+    const formData = new FormData();
+    formData.append("conversationId", conversationId);
+    formData.append("content", content);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    const res = await api.post("/messages/group", formData);
     return res.data.message;
   },
 
@@ -60,8 +71,13 @@ export const chatService = {
     type: "direct" | "group",
     name: string,
     memberIds: string[]
-  ) {
+  ): Promise<Conversation> {
     const res = await api.post("/conversations", { type, name, memberIds });
     return res.data.conversation;
+  },
+
+  async deleteConversation(conversationId: string) {
+    const res = await api.delete(`/conversations/${conversationId}`);
+    return res.data;
   },
 };

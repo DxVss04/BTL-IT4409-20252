@@ -51,17 +51,17 @@ export interface ChatState {
   sendDirectMessage: (
     recipientId: string,
     content: string,
-    imgUrl?: string
+    image?: File | null
   ) => Promise<void>;
   sendGroupMessage: (
     conversationId: string,
     content: string,
-    imgUrl?: string
+    image?: File | null
   ) => Promise<void>;
   // add message
   addMessage: (message: Message) => Promise<void>;
   // update convo
-  updateConversation: (conversation: unknown) => void;
+  updateConversation: (conversation: Partial<Conversation> & { _id: string }) => void;
   markAsSeen: () => Promise<void>;
   addConvo: (convo: Conversation) => void;
   createConversation: (
@@ -69,6 +69,7 @@ export interface ChatState {
     name: string,
     memberIds: string[]
   ) => Promise<void>;
+  deleteConversation: (conversationId: string) => Promise<void>;
 }
 
 export interface SocketState {
@@ -83,8 +84,12 @@ export interface FriendState {
   loading: boolean;
   receivedList: FriendRequest[];
   sentList: FriendRequest[];
+  hasUnreadFriendRequest: boolean;
   searchByUsername: (username: string) => Promise<User | null>;
   addFriend: (to: string, message?: string) => Promise<string>;
+  addReceivedRequest: (request: FriendRequest) => void;
+  addSentRequest: (request: FriendRequest) => void;
+  markFriendRequestsSeen: () => void;
   getAllFriendRequests: () => Promise<void>;
   acceptRequest: (requestId: string) => Promise<void>;
   declineRequest: (requestId: string) => Promise<void>;
@@ -93,4 +98,21 @@ export interface FriendState {
 
 export interface UserState {
   updateAvatarUrl: (formData: FormData) => Promise<void>;
+  updateProfile: (
+    payload: Partial<
+      Pick<
+        User,
+        | "displayName"
+        | "username"
+        | "email"
+        | "phone"
+        | "bio"
+        | "showOnlineStatus"
+        | "notificationEnabled"
+      >
+    >
+  ) => Promise<User>;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+  blockAndReportUser: (username: string, reason?: string) => Promise<void>;
+  deleteAccount: () => Promise<void>;
 }
