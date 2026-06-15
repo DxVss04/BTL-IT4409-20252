@@ -46,7 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <a href="#">
                 <div className="flex w-full items-center justify-between px-2">
                   <h1 className="text-xl font-semibold tracking-tight text-white">
-                    Moji
+                    Ugmail
                   </h1>
                   <div className="flex items-center gap-2">
                     <Sun className="size-4 text-white/80" />

@@ -11,7 +11,7 @@ const ChatWelcomeScreen = () => {
             <span className="text-3xl">💬</span>
           </div>
           <h2 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">
-            Chào mừng bạn đến với Moji!
+            Chào mừng bạn đến với Ugmail!
           </h2>
           <p className="text-sm leading-6 text-muted-foreground">
             Chọn một cuộc hội thoại để bắt đầu chat!

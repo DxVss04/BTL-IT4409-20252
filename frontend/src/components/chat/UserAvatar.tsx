@@ -12,7 +12,7 @@ const UserAvatar = ({ type, name, avatarUrl, className }: IUserAvatarProps) => {
   const bgColor = !avatarUrl ? "bg-gradient-chat" : "";
 
   if (!name) {
-    name = "Moji";
+    name = "Ugmail";
   }
 
   return (
