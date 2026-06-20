@@ -11,7 +11,11 @@ export const useChatStore = create<ChatState>()(
       conversations: [],
       messages: {},
       activeConversationId: null,
+<<<<<<< HEAD
       convoLoading: false, // convo loading
+=======
+      convoLoading: false,
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
       messageLoading: false,
       loading: false,
 
@@ -32,7 +36,11 @@ export const useChatStore = create<ChatState>()(
 
           set({ conversations, convoLoading: false });
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy ra khi fetchConversations:", error);
+=======
+          console.error("Loi xay ra khi fetchConversations:", error);
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
           set({ convoLoading: false });
         }
       },
@@ -79,18 +87,30 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy ra khi fetchMessages:", error);
+=======
+          console.error("Loi xay ra khi fetchMessages:", error);
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         } finally {
           set({ messageLoading: false });
         }
       },
+<<<<<<< HEAD
       sendDirectMessage: async (recipientId, content, imgUrl) => {
+=======
+      sendDirectMessage: async (recipientId, content, image) => {
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         try {
           const { activeConversationId } = get();
           await chatService.sendDirectMessage(
             recipientId,
             content,
+<<<<<<< HEAD
             imgUrl,
+=======
+            image,
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
             activeConversationId || undefined
           );
           set((state) => ({
@@ -99,19 +119,34 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy ra khi gửi direct message", error);
         }
       },
       sendGroupMessage: async (conversationId, content, imgUrl) => {
         try {
           await chatService.sendGroupMessage(conversationId, content, imgUrl);
+=======
+          console.error("Loi xay ra khi gui direct message", error);
+          throw error;
+        }
+      },
+      sendGroupMessage: async (conversationId, content, image) => {
+        try {
+          await chatService.sendGroupMessage(conversationId, content, image);
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
           set((state) => ({
             conversations: state.conversations.map((c) =>
               c._id === get().activeConversationId ? { ...c, seenBy: [] } : c
             ),
           }));
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy ra gửi group message", error);
+=======
+          console.error("Loi xay ra khi gui group message", error);
+          throw error;
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         }
       },
       addMessage: async (message) => {
@@ -147,7 +182,11 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy khi ra add message:", error);
+=======
+          console.error("Loi xay khi ra add message:", error);
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         }
       },
       updateConversation: (conversation) => {
@@ -192,7 +231,11 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy ra khi gọi markAsSeen trong store", error);
+=======
+          console.error("Loi xay ra khi goi markAsSeen trong store", error);
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         }
       },
       addConvo: (convo) => {
@@ -224,11 +267,41 @@ export const useChatStore = create<ChatState>()(
             .getState()
             .socket?.emit("join-conversation", conversation._id);
         } catch (error) {
+<<<<<<< HEAD
           console.error("Lỗi xảy ra khi gọi createConversation trong store", error);
+=======
+          console.error("Loi xay ra khi goi createConversation trong store", error);
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         } finally {
           set({ loading: false });
         }
       },
+<<<<<<< HEAD
+=======
+      deleteConversation: async (conversationId) => {
+        try {
+          await chatService.deleteConversation(conversationId);
+          set((state) => {
+            const nextMessages = { ...state.messages };
+            delete nextMessages[conversationId];
+
+            return {
+              conversations: state.conversations.filter(
+                (c) => c._id !== conversationId
+              ),
+              messages: nextMessages,
+              activeConversationId:
+                state.activeConversationId === conversationId
+                  ? null
+                  : state.activeConversationId,
+            };
+          });
+        } catch (error) {
+          console.error("Loi xay ra khi xoa conversation", error);
+          throw error;
+        }
+      },
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
     }),
     {
       name: "chat-storage",

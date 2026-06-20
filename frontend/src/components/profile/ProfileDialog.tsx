@@ -19,12 +19,21 @@ const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
       open={open}
       onOpenChange={setOpen}
     >
+<<<<<<< HEAD
       <DialogContent className="overflow-y-auto max-h-[95vh] p-0 bg-transparent border-0 shadow-2xl">
         <div className="bg-gradient-glass">
           <div className="max-w-4xl mx-auto p-4">
             {/* heading */}
             <DialogHeader className="mb-6">
               <DialogTitle className="text-2xl font-bold text-foreground">
+=======
+      <DialogContent className="max-h-[95vh] overflow-y-auto border-border/80 bg-card p-0 shadow-[var(--shadow-soft)] sm:max-w-4xl">
+        <div className="bg-gradient-glass">
+          <div className="mx-auto max-w-4xl p-4 sm:p-6">
+            {/* heading */}
+            <DialogHeader className="mb-6">
+              <DialogTitle className="text-2xl font-semibold tracking-tight text-foreground">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                 Profile & Settings
               </DialogTitle>
             </DialogHeader>
@@ -35,22 +44,37 @@ const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
               defaultValue="personal"
               className="my-4"
             >
+<<<<<<< HEAD
               <TabsList className="grid w-full grid-cols-3 glass-light">
                 <TabsTrigger
                   value="personal"
                   className="data-[state=active]:glass-strong"
+=======
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger
+                  value="personal"
+                  className="data-[state=active]:shadow-sm"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                 >
                   Tài Khoản
                 </TabsTrigger>
                 <TabsTrigger
                   value="preferences"
+<<<<<<< HEAD
                   className="data-[state=active]:glass-strong"
+=======
+                  className="data-[state=active]:shadow-sm"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                 >
                   Cấu Hình
                 </TabsTrigger>
                 <TabsTrigger
                   value="privacy"
+<<<<<<< HEAD
                   className="data-[state=active]:glass-strong"
+=======
+                  className="data-[state=active]:shadow-sm"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                 >
                   Bảo Mật
                 </TabsTrigger>

@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     avatarUrl: {
+<<<<<<< HEAD
       type: String, // link CDN để hiển thị hình
     },
     avatarId: {
@@ -39,6 +40,35 @@ const userSchema = new mongoose.Schema(
       type: String,
       sparse: true, // cho phép null, nhưng không được trùng
     },
+=======
+      type: String,
+    },
+    avatarId: {
+      type: String,
+    },
+    bio: {
+      type: String,
+      maxlength: 500,
+    },
+    phone: {
+      type: String,
+      sparse: true,
+    },
+    showOnlineStatus: {
+      type: Boolean,
+      default: true,
+    },
+    notificationEnabled: {
+      type: Boolean,
+      default: true,
+    },
+    blockedUsers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   },
   {
     timestamps: true,

@@ -6,6 +6,12 @@ export interface User {
   avatarUrl?: string;
   bio?: string;
   phone?: string;
+<<<<<<< HEAD
+=======
+  showOnlineStatus?: boolean;
+  notificationEnabled?: boolean;
+  blockedUsers?: string[];
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   createdAt?: string;
   updatedAt?: string;
 }

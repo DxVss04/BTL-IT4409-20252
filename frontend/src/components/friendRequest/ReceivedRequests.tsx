@@ -33,7 +33,11 @@ const ReceivedRequests = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="space-y-3 mt-4">
+=======
+    <div className="mt-4 space-y-3">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
       {receivedList.map((req) => (
         <FriendRequestItem
           key={req._id}

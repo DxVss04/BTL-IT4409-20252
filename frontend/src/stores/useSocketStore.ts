@@ -3,6 +3,12 @@ import { io, type Socket } from "socket.io-client";
 import { useAuthStore } from "./useAuthStore";
 import type { SocketState } from "@/types/store";
 import { useChatStore } from "./useChatStore";
+<<<<<<< HEAD
+=======
+import { useFriendStore } from "./useFriendStore";
+import type { FriendRequest } from "@/types/user";
+import { toast } from "sonner";
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 
 const baseURL = import.meta.env.VITE_SOCKET_URL;
 
@@ -38,6 +44,10 @@ export const useSocketStore = create<SocketState>((set, get) => ({
       const lastMessage = {
         _id: conversation.lastMessage._id,
         content: conversation.lastMessage.content,
+<<<<<<< HEAD
+=======
+        imgUrl: conversation.lastMessage.imgUrl,
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         createdAt: conversation.lastMessage.createdAt,
         sender: {
           _id: conversation.lastMessage.senderId,
@@ -56,7 +66,19 @@ export const useSocketStore = create<SocketState>((set, get) => ({
         useChatStore.getState().markAsSeen();
       }
 
+<<<<<<< HEAD
       useChatStore.getState().updateConversation(updatedConversation);
+=======
+      const exists = useChatStore
+        .getState()
+        .conversations.some((c) => c._id === conversation._id);
+
+      if (exists) {
+        useChatStore.getState().updateConversation(updatedConversation);
+      } else {
+        useChatStore.getState().fetchConversations();
+      }
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
     });
 
     // read message
@@ -77,6 +99,21 @@ export const useSocketStore = create<SocketState>((set, get) => ({
       useChatStore.getState().addConvo(conversation);
       socket.emit("join-conversation", conversation._id);
     });
+<<<<<<< HEAD
+=======
+
+    socket.on("friend-request:received", (request: FriendRequest) => {
+      useFriendStore.getState().addReceivedRequest(request);
+
+      toast.info(
+        `${request.from?.displayName ?? "Một người dùng"} đã gửi lời mời kết bạn`
+      );
+    });
+
+    socket.on("friend-request:sent", (request: FriendRequest) => {
+      useFriendStore.getState().addSentRequest(request);
+    });
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   },
   disconnectSocket: () => {
     const socket = get().socket;

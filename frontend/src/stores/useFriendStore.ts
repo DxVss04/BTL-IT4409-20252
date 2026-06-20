@@ -2,11 +2,19 @@ import { friendService } from "@/services/friendService";
 import type { FriendState } from "@/types/store";
 import { create } from "zustand";
 
+<<<<<<< HEAD
 export const useFriendStore = create<FriendState>((set, get) => ({
+=======
+export const useFriendStore = create<FriendState>((set) => ({
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   friends: [],
   loading: false,
   receivedList: [],
   sentList: [],
+<<<<<<< HEAD
+=======
+  hasUnreadFriendRequest: false,
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   searchByUsername: async (username) => {
     try {
       set({ loading: true });
@@ -33,6 +41,33 @@ export const useFriendStore = create<FriendState>((set, get) => ({
       set({ loading: false });
     }
   },
+<<<<<<< HEAD
+=======
+  addReceivedRequest: (request) => {
+    set((state) => {
+      const exists = state.receivedList.some((r) => r._id === request._id);
+
+      return {
+        receivedList: exists
+          ? state.receivedList
+          : [request, ...state.receivedList],
+        hasUnreadFriendRequest: true,
+      };
+    });
+  },
+  addSentRequest: (request) => {
+    set((state) => {
+      const exists = state.sentList.some((r) => r._id === request._id);
+
+      return {
+        sentList: exists ? state.sentList : [request, ...state.sentList],
+      };
+    });
+  },
+  markFriendRequestsSeen: () => {
+    set({ hasUnreadFriendRequest: false });
+  },
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   getAllFriendRequests: async () => {
     try {
       set({ loading: true });

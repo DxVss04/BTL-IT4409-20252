@@ -91,19 +91,31 @@ const ChatWindowBody = () => {
 
   if (!messages?.length) {
     return (
+<<<<<<< HEAD
       <div className="flex h-full items-center justify-center text-muted-foreground ">
+=======
+      <div className="flex h-full items-center justify-center bg-secondary/50 px-6 text-center text-sm text-muted-foreground dark:bg-background">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         Chưa có tin nhắn nào trong cuộc trò chuyện này.
       </div>
     );
   }
 
   return (
+<<<<<<< HEAD
     <div className="p-4 bg-primary-foreground h-full flex flex-col overflow-hidden">
+=======
+    <div className="flex h-full flex-col overflow-hidden bg-secondary/50 p-4 dark:bg-background sm:p-6">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
       <div
         id="scrollableDiv"
         ref={containerRef}
         onScroll={handleScrollSave}
+<<<<<<< HEAD
         className="flex flex-col-reverse overflow-y-auto overflow-x-hidden beautiful-scrollbar"
+=======
+        className="beautiful-scrollbar flex flex-col-reverse overflow-y-auto overflow-x-hidden pr-1"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
       >
         <div ref={messagesEndRef}></div>
         <InfiniteScroll

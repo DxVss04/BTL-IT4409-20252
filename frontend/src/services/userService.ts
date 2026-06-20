@@ -1,4 +1,21 @@
 import api from "@/lib/axios";
+<<<<<<< HEAD
+=======
+import type { User } from "@/types/user";
+
+type UpdateProfilePayload = Partial<
+  Pick<
+    User,
+    | "displayName"
+    | "username"
+    | "email"
+    | "phone"
+    | "bio"
+    | "showOnlineStatus"
+    | "notificationEnabled"
+  >
+>;
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 
 export const userService = {
   uploadAvatar: async (formData: FormData) => {
@@ -12,4 +29,30 @@ export const userService = {
 
     return res.data;
   },
+<<<<<<< HEAD
+=======
+
+  updateProfile: async (payload: UpdateProfilePayload): Promise<User> => {
+    const res = await api.patch("/users/me", payload);
+    return res.data.user;
+  },
+
+  changePassword: async (currentPassword: string, newPassword: string) => {
+    const res = await api.patch("/users/password", {
+      currentPassword,
+      newPassword,
+    });
+    return res.data;
+  },
+
+  blockAndReportUser: async (username: string, reason?: string): Promise<User> => {
+    const res = await api.post("/users/block-report", { username, reason });
+    return res.data.user;
+  },
+
+  deleteAccount: async () => {
+    const res = await api.delete("/users/me");
+    return res.data;
+  },
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 };

@@ -13,6 +13,7 @@ export default defineConfig([
       js.configs.recommended,
       tseslint.configs.recommended,
 <<<<<<< HEAD
+<<<<<<< HEAD
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
     ],
@@ -24,6 +25,13 @@ export default defineConfig([
     ],
     languageOptions: {
 >>>>>>> origin/banje-branch
+=======
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
       globals: globals.browser,
     },
   },

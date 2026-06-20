@@ -4,6 +4,9 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -11,7 +14,10 @@
       "@/*": ["./src/*"]
     }
   }
+<<<<<<< HEAD
 =======
   ]
 >>>>>>> origin/banje-branch
+=======
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 }

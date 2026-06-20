@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
@@ -11,24 +12,34 @@
   "type": "module",
 =======
   "main": "index.js",
+=======
+  "main": "src/server.js",
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
+<<<<<<< HEAD
 >>>>>>> origin/banje-branch
+=======
+  "type": "module",
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
     "cloudinary": "^2.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+<<<<<<< HEAD
     "mongoose": "^8.19.0",
     "multer": "^2.0.2",
     "socket.io": "^4.8.1",
@@ -58,5 +69,15 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^6.0.3"
 >>>>>>> origin/banje-branch
+=======
+    "mongodb": "^7.2.0",
+    "mongoose": "^8.24.0",
+    "multer": "^2.0.2",
+    "socket.io": "^4.8.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   }
 }

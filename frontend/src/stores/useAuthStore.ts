@@ -52,7 +52,11 @@ export const useAuthStore = create<AuthState>()(
           await get().fetchMe();
           useChatStore.getState().fetchConversations();
 
+<<<<<<< HEAD
           toast.success("Chào mừng bạn quay lại với Moji 🎉");
+=======
+          toast.success("Chào mừng bạn quay lại với Ugmail 🎉");
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         } catch (error) {
           console.error(error);
           toast.error("Đăng nhập không thành công!");

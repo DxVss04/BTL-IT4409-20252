@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 node_modules/
 .env
 !.env.example
 jsconfig.json
 
 # REACT
+=======
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 # Logs
 logs
 *.log
@@ -28,3 +31,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
+=======
+
+backend/.env
+frontend/.env
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8

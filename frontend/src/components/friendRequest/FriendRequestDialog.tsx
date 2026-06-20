@@ -36,7 +36,11 @@ const FriendRequestDialog = ({ open, setOpen }: FriendRequestDialogProps) => {
       open={open}
       onOpenChange={setOpen}
     >
+<<<<<<< HEAD
       <DialogContent className="sm:max-w-lg">
+=======
+      <DialogContent className="border-border/80 sm:max-w-lg">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         <DialogHeader>
           <DialogTitle>Lời mời kết bạn</DialogTitle>
         </DialogHeader>

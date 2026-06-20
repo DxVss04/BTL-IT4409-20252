@@ -19,6 +19,15 @@ export interface Group {
 export interface LastMessage {
   _id: string;
   content: string;
+<<<<<<< HEAD
+=======
+  imgUrl?: string | null;
+  senderId?: string | {
+    _id: string;
+    displayName?: string;
+    avatarUrl?: string | null;
+  };
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   createdAt: string;
   sender: {
     _id: string;

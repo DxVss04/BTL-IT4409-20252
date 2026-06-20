@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 import { BrowserRouter, Route, Routes } from "react-router";
 import SignInPage from "./pages/SignInPage";
 import ChatAppPage from "./pages/ChatAppPage";
@@ -9,6 +12,7 @@ import { useThemeStore } from "./stores/useThemeStore";
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/useAuthStore";
 import { useSocketStore } from "./stores/useSocketStore";
+<<<<<<< HEAD
 
 function App() {
   const { isDark, setTheme } = useThemeStore();
@@ -59,23 +63,57 @@ import AuthPage from './pages/AuthPage';
 import ChatPage from './pages/ChatPage';
 import ContactsPage from './pages/ContactsPage';
 import MainLayout from './layouts/MainLayout';
+=======
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 
 function App() {
+  const { isDark, setTheme } = useThemeStore();
+  const { accessToken } = useAuthStore();
+  const { connectSocket, disconnectSocket } = useSocketStore();
+
+  useEffect(() => {
+    setTheme(isDark);
+  }, [isDark]);
+
+  useEffect(() => {
+    if (accessToken) {
+      connectSocket();
+    }
+
+    return () => disconnectSocket();
+  }, [accessToken]);
+
   return (
-    <Router>
-      <div className="h-screen w-screen bg-surface flex overflow-hidden">
+    <>
+      <Toaster richColors />
+      <BrowserRouter>
         <Routes>
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<ChatPage />} />
-            <Route path="contacts" element={<ContactsPage />} />
-            {/* Additional routes will go here */}
+          {/* public routes */}
+          <Route
+            path="/signin"
+            element={<SignInPage />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUpPage />}
+          />
+
+          {/* protectect routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/"
+              element={<ChatAppPage />}
+            />
           </Route>
-          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+<<<<<<< HEAD
       </div>
     </Router>
 >>>>>>> origin/banje-branch
+=======
+      </BrowserRouter>
+    </>
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   );
 }
 

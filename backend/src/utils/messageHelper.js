@@ -5,10 +5,19 @@ export const updateConversationAfterCreateMessage = (
 ) => {
   conversation.set({
     seenBy: [],
+<<<<<<< HEAD
     lastMessageAt: message.createdAt,
     lastMessage: {
       _id: message._id,
       content: message.content,
+=======
+    deletedFor: [],
+    lastMessageAt: message.createdAt,
+    lastMessage: {
+      _id: message._id,
+      content: message.content || (message.imgUrl ? "Da gui anh" : ""),
+      imgUrl: message.imgUrl ?? null,
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
       senderId,
       createdAt: message.createdAt,
     },

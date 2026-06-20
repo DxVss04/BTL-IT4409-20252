@@ -36,7 +36,11 @@ const SearchForm = ({
       <div className="space-y-2">
         <Label
           htmlFor="username"
+<<<<<<< HEAD
           className="text-sm font-semibold"
+=======
+          className="text-sm font-semibold text-foreground"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         >
           Tìm bằng username
         </Label>
@@ -44,7 +48,11 @@ const SearchForm = ({
         <Input
           id="username"
           placeholder="Gõ tên username vào đây..."
+<<<<<<< HEAD
           className="glass border-border/50 focus:border-primary/50 transition-smooth"
+=======
+          className="border-border/80 bg-background transition-smooth focus:border-primary/50"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
           {...register("username", {
             required: "Username không được bỏ trống",
           })}
@@ -66,7 +74,11 @@ const SearchForm = ({
           <Button
             type="button"
             variant="outline"
+<<<<<<< HEAD
             className="flex-1 glass hover:text-destructive"
+=======
+            className="flex-1 hover:border-destructive/25 hover:text-destructive"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
             onClick={onCancel}
           >
             Cancel
@@ -76,7 +88,11 @@ const SearchForm = ({
         <Button
           type="submit"
           disabled={loading || !usernameValue?.trim()}
+<<<<<<< HEAD
           className="flex-1 bg-gradient-chat text-white hover:opacity-90 transition-smooth"
+=======
+          className="flex-1 bg-gradient-chat text-white transition-smooth hover:shadow-[var(--shadow-glow)]"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         >
           {loading ? (
             <span>Đang tìm ...</span>

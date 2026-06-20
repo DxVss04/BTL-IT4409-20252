@@ -80,13 +80,21 @@ const AddFriendModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
+<<<<<<< HEAD
         <div className="flex justify-center items-center size-5 rounded-full hover:bg-sidebar-accent cursor-pointer z-10">
+=======
+        <div className="z-10 flex size-6 cursor-pointer items-center justify-center rounded-md text-sidebar-foreground/70 transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
           <UserPlus className="size-4" />
           <span className="sr-only">Kết bạn</span>
         </div>
       </DialogTrigger>
 
+<<<<<<< HEAD
       <DialogContent className="sm:max-w-[425px] border-none">
+=======
+      <DialogContent className="border-border/80 sm:max-w-[425px]">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         <DialogHeader>
           <DialogTitle>Kết Bạn</DialogTitle>
         </DialogHeader>

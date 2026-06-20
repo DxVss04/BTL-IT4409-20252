@@ -1,7 +1,11 @@
 {
   "openapi": "3.0.0",
   "info": {
+<<<<<<< HEAD
     "title": "Moji",
+=======
+    "title": "Ugmail",
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
     "version": "1.0.0",
     "description": ""
   },

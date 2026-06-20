@@ -21,11 +21,24 @@ import Logout from "../auth/Logout";
 import { useState } from "react";
 import FriendRequestDialog from "../friendRequest/FriendRequestDialog";
 import ProfileDialog from "../profile/ProfileDialog";
+<<<<<<< HEAD
+=======
+import { useFriendStore } from "@/stores/useFriendStore";
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 
 export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
   const [friendRequestOpen, setfriendRequestOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+<<<<<<< HEAD
+=======
+  const { hasUnreadFriendRequest, markFriendRequestsSeen } = useFriendStore();
+
+  const openFriendRequests = () => {
+    setfriendRequestOpen(true);
+    markFriendRequestsSeen();
+  };
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 
   return (
     <>
@@ -35,9 +48,15 @@ export function NavUser({ user }: { user: User }) {
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size="lg"
+<<<<<<< HEAD
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
                 <Avatar className="h-8 w-8 rounded-lg">
+=======
+                className="h-14 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
+                <Avatar className="h-9 w-9 rounded-lg ring-1 ring-sidebar-border">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                   <AvatarImage
                     src={user.avatarUrl}
                     alt={user.displayName}
@@ -47,8 +66,13 @@ export function NavUser({ user }: { user: User }) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
+<<<<<<< HEAD
                   <span className="truncate font-medium">{user.displayName}</span>
                   <span className="truncate text-xs">{user.username}</span>
+=======
+                  <span className="truncate font-semibold">{user.displayName}</span>
+                  <span className="truncate text-xs text-sidebar-foreground/65">{user.username}</span>
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                 </div>
                 <ChevronsUpDown className="ml-auto size-4" />
               </SidebarMenuButton>
@@ -61,7 +85,11 @@ export function NavUser({ user }: { user: User }) {
             >
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+<<<<<<< HEAD
                   <Avatar className="h-8 w-8 rounded-lg">
+=======
+                  <Avatar className="h-9 w-9 rounded-lg ring-1 ring-border">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                     <AvatarImage
                       src={user.avatarUrl}
                       alt={user.username}
@@ -71,8 +99,13 @@ export function NavUser({ user }: { user: User }) {
                     </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
+<<<<<<< HEAD
                     <span className="truncate font-medium">{user.displayName}</span>
                     <span className="truncate text-xs">{user.username}</span>
+=======
+                    <span className="truncate font-semibold">{user.displayName}</span>
+                    <span className="truncate text-xs text-muted-foreground">{user.username}</span>
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                   </div>
                 </div>
               </DropdownMenuLabel>
@@ -82,8 +115,18 @@ export function NavUser({ user }: { user: User }) {
                   <UserIcon className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
                   Tài Khoản
                 </DropdownMenuItem>
+<<<<<<< HEAD
                 <DropdownMenuItem onClick={() => setfriendRequestOpen(true)}>
                   <Bell className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
+=======
+                <DropdownMenuItem onClick={openFriendRequests}>
+                  <span className="relative">
+                    <Bell className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
+                    {hasUnreadFriendRequest && (
+                      <span className="absolute -right-1 -top-1 size-2.5 rounded-full bg-red-500 ring-2 ring-background" />
+                    )}
+                  </span>
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
                   Thông Báo
                 </DropdownMenuItem>
               </DropdownMenuGroup>

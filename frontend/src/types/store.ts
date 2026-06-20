@@ -51,17 +51,29 @@ export interface ChatState {
   sendDirectMessage: (
     recipientId: string,
     content: string,
+<<<<<<< HEAD
     imgUrl?: string
+=======
+    image?: File | null
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   ) => Promise<void>;
   sendGroupMessage: (
     conversationId: string,
     content: string,
+<<<<<<< HEAD
     imgUrl?: string
+=======
+    image?: File | null
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   ) => Promise<void>;
   // add message
   addMessage: (message: Message) => Promise<void>;
   // update convo
+<<<<<<< HEAD
   updateConversation: (conversation: unknown) => void;
+=======
+  updateConversation: (conversation: Partial<Conversation> & { _id: string }) => void;
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   markAsSeen: () => Promise<void>;
   addConvo: (convo: Conversation) => void;
   createConversation: (
@@ -69,6 +81,10 @@ export interface ChatState {
     name: string,
     memberIds: string[]
   ) => Promise<void>;
+<<<<<<< HEAD
+=======
+  deleteConversation: (conversationId: string) => Promise<void>;
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 }
 
 export interface SocketState {
@@ -83,8 +99,17 @@ export interface FriendState {
   loading: boolean;
   receivedList: FriendRequest[];
   sentList: FriendRequest[];
+<<<<<<< HEAD
   searchByUsername: (username: string) => Promise<User | null>;
   addFriend: (to: string, message?: string) => Promise<string>;
+=======
+  hasUnreadFriendRequest: boolean;
+  searchByUsername: (username: string) => Promise<User | null>;
+  addFriend: (to: string, message?: string) => Promise<string>;
+  addReceivedRequest: (request: FriendRequest) => void;
+  addSentRequest: (request: FriendRequest) => void;
+  markFriendRequestsSeen: () => void;
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   getAllFriendRequests: () => Promise<void>;
   acceptRequest: (requestId: string) => Promise<void>;
   declineRequest: (requestId: string) => Promise<void>;
@@ -93,4 +118,24 @@ export interface FriendState {
 
 export interface UserState {
   updateAvatarUrl: (formData: FormData) => Promise<void>;
+<<<<<<< HEAD
+=======
+  updateProfile: (
+    payload: Partial<
+      Pick<
+        User,
+        | "displayName"
+        | "username"
+        | "email"
+        | "phone"
+        | "bio"
+        | "showOnlineStatus"
+        | "notificationEnabled"
+      >
+    >
+  ) => Promise<User>;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+  blockAndReportUser: (username: string, reason?: string) => Promise<void>;
+  deleteAccount: () => Promise<void>;
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 }

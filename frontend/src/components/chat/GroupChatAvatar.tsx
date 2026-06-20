@@ -29,7 +29,11 @@ const GroupChatAvatar = ({ participants, type }: GroupChatAvatarProps) => {
 
       {/* nếu nhiều hơn 4 avatar thì render dấu ... */}
       {participants.length > limit && (
+<<<<<<< HEAD
         <div className="flex items-center z-10 justify-center size-8 rounded-full bg-muted ring-2 ring-background text-muted-foreground">
+=======
+        <div className="z-10 flex size-8 items-center justify-center rounded-full bg-accent text-accent-foreground ring-2 ring-background">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
           <Ellipsis className="size-4" />
         </div>
       )}

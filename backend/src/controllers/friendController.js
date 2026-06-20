@@ -1,6 +1,10 @@
 import Friend from "../models/Friend.js";
 import User from "../models/User.js";
 import FriendRequest from "../models/FriendRequest.js";
+<<<<<<< HEAD
+=======
+import { io } from "../socket/index.js";
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
 
 export const sendFriendRequest = async (req, res) => {
   try {
@@ -51,6 +55,17 @@ export const sendFriendRequest = async (req, res) => {
       message,
     });
 
+<<<<<<< HEAD
+=======
+    await request.populate([
+      { path: "from", select: "_id username displayName avatarUrl" },
+      { path: "to", select: "_id username displayName avatarUrl" },
+    ]);
+
+    io.to(to.toString()).emit("friend-request:received", request);
+    io.to(from.toString()).emit("friend-request:sent", request);
+
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
     return res
       .status(201)
       .json({ message: "Gửi lời mời kết bạn thành công", request });

@@ -40,6 +40,13 @@ const lastMessageSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+<<<<<<< HEAD
+=======
+    imgUrl: {
+      type: String,
+      default: null,
+    },
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
     senderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -86,6 +93,15 @@ const conversationSchema = new mongoose.Schema(
       of: Number,
       default: {},
     },
+<<<<<<< HEAD
+=======
+    deletedFor: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
   },
   {
     timestamps: true,

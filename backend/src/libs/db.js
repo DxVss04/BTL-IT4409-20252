@@ -10,3 +10,8 @@ export const connectDB = async () => {
     process.exit(1);
   }
 };
+<<<<<<< HEAD
+=======
+  
+  
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8

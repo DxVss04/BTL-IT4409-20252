@@ -70,15 +70,25 @@ const NewGroupChatModal = () => {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
+<<<<<<< HEAD
           onClick={handleGetFriends}
           className="flex z-10 justify-center items-center size-5 rounded-full hover:bg-sidebar-accent transition cursor-pointer"
+=======
+          size="icon-sm"
+          onClick={handleGetFriends}
+          className="z-10 flex size-6 cursor-pointer items-center justify-center rounded-md text-sidebar-foreground/70 transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         >
           <Users className="size-4" />
           <span className="sr-only">Tạo nhóm</span>
         </Button>
       </DialogTrigger>
 
+<<<<<<< HEAD
       <DialogContent className="sm:max-w-[425px] border-none">
+=======
+      <DialogContent className="border-border/80 sm:max-w-[425px]">
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
         <DialogHeader>
           <DialogTitle className="capitalize">tạo nhóm chat mới</DialogTitle>
         </DialogHeader>
@@ -91,14 +101,22 @@ const NewGroupChatModal = () => {
           <div className="space-y-2">
             <Label
               htmlFor="groupName"
+<<<<<<< HEAD
               className="text-sm font-semibold"
+=======
+            className="text-sm font-semibold text-foreground"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
             >
               Tên nhóm
             </Label>
             <Input
               id="groupName"
               placeholder="Gõ tên nhóm vào đây..."
+<<<<<<< HEAD
               className="glass border-border/50 focus:border-primary/50 transition-smooth"
+=======
+              className="border-border/80 bg-background transition-smooth focus:border-primary/50"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               required
@@ -109,7 +127,11 @@ const NewGroupChatModal = () => {
           <div className="space-y-2">
             <Label
               htmlFor="invite"
+<<<<<<< HEAD
               className="text-sm font-semibold"
+=======
+              className="text-sm font-semibold text-foreground"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
             >
               Mời thành viên
             </Label>
@@ -119,7 +141,11 @@ const NewGroupChatModal = () => {
               placeholder="Tìm theo tên hiển thị..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+<<<<<<< HEAD
               className="flex-1"
+=======
+              className="flex-1 bg-background"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
             />
 
             {/* danh sách gợi ý */}
@@ -141,7 +167,11 @@ const NewGroupChatModal = () => {
             <Button
               type="submit"
               disabled={loading}
+<<<<<<< HEAD
               className="flex-1 bg-gradient-chat text-white hover:opacity-90 transition-smooth"
+=======
+              className="flex-1 bg-gradient-chat text-white transition-smooth hover:shadow-[var(--shadow-glow)]"
+>>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
             >
               {loading ? (
                 <span>Đang tạo...</span>
