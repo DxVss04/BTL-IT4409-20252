@@ -4,8 +4,8 @@ import express from "express";
 import { socketAuthMiddleware } from "../middlewares/socketMiddleware.js";
 import { getUserConversationsForSocketIO } from "../controllers/conversationController.js";
 
-const app = express();
 
+const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -15,63 +15,58 @@ const io = new Server(server, {
   },
 });
 
+// Cấu hình middleware xác thực
 io.use(socketAuthMiddleware);
 
-const onlineUsers = new Map(); // {userId: socketId}
+// Bộ nhớ lưu trữ danh sách user đang hoạt động: { userId => socket }
+const onlineUsers = new Map();
 
-<<<<<<< HEAD
-=======
-const emitOnlineUsers = () => {
-  const visibleUserIds = Array.from(onlineUsers.entries())
-    .filter(([, socket]) => socket.user?.showOnlineStatus !== false)
+/**
+ * Phát tín hiệu danh sách các user đang online (loại trừ những người ẩn trạng thái)
+ */
+function broadcastOnlineUsers() {
+  const activeUserIds = Array.from(onlineUsers.entries())
+    .filter(([, clientSocket]) => clientSocket.user?.showOnlineStatus !== false)
     .map(([userId]) => userId);
 
-  io.emit("online-users", visibleUserIds);
-};
+  io.emit("online-users", activeUserIds);
+}
 
->>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
+// Xử lý khi có kết nối mới
 io.on("connection", async (socket) => {
-  const user = socket.user;
+  const { user } = socket;
+  const currentUserId = user._id.toString();
 
-  // console.log(`${user.displayName} online với socket ${socket.id}`);
+  // Đăng ký user vào danh sách hệ thống
+  onlineUsers.set(currentUserId, socket);
+  broadcastOnlineUsers();
 
-<<<<<<< HEAD
-  onlineUsers.set(user._id, socket.id);
+  // Tham gia vào các phòng chat hiện có của user
+  const userRooms = await getUserConversationsForSocketIO(user._id);
+  for (const roomId of userRooms) {
+    socket.join(roomId);
+  }
 
-  io.emit("online-users", Array.from(onlineUsers.keys()));
-=======
-  onlineUsers.set(user._id.toString(), socket);
+  // Tham gia phòng cá nhân dựa trên ID
+  socket.join(currentUserId);
 
-  emitOnlineUsers();
->>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
-
-  const conversationIds = await getUserConversationsForSocketIO(user._id);
-  conversationIds.forEach((id) => {
-    socket.join(id);
-  });
-
+  // Lắng nghe các sự kiện từ client
   socket.on("join-conversation", (conversationId) => {
     socket.join(conversationId);
   });
 
-  socket.join(user._id.toString());
-
-<<<<<<< HEAD
-  socket.on("disconnect", () => {
-    onlineUsers.delete(user._id);
-    io.emit("online-users", Array.from(onlineUsers.keys()));
-=======
-  socket.on("online-visibility", (showOnlineStatus) => {
-    socket.user.showOnlineStatus = showOnlineStatus;
-    emitOnlineUsers();
+  socket.on("online-visibility", (isProfileVisible) => {
+    socket.user.showOnlineStatus = isProfileVisible;
+    broadcastOnlineUsers();
   });
 
   socket.on("disconnect", () => {
-    onlineUsers.delete(user._id.toString());
-    emitOnlineUsers();
->>>>>>> 08b9194a548e657ffafa110f047342d94ec378c8
-    /* console.log(`socket disconnected: ${socket.id}`); */
+    onlineUsers.delete(currentUserId);
+    broadcastOnlineUsers();
   });
 });
 
-export { io, app, server };
+export { app, server, io };
+
+export { io, app, server }; 
+// Export io để có thể sử dụng trong các controller khác khi cần thiết
